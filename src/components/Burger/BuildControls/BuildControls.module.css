@@ -21,6 +21,10 @@
   box-shadow: 2px 2px 2px #966909;
 }
 
+.OrderButton:first-of-type {
+  margin-right: 10px;
+}
+
 .OrderButton:hover,
 .OrderButton:active {
   background-color: #a0db41;
