@@ -9,7 +9,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
       error: null
     }
 
-    componentDidMount() {
+    componentWillMount() {
       // Resetting the error state each time we send a new request.
       // Also, ALWAYS RETURN THE REQUEST, otherwise the app will get stuck.
       axios.interceptors.request.use(req => {
@@ -17,7 +17,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
         return req
       });
 
-      // Setting an interceptor to 
+      // Setting an interceptor to
       axios.interceptors.response.use(res => res, error => {
         this.setState({ error: error })
       });
