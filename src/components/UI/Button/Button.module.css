@@ -14,7 +14,10 @@
 .Success {
   border-color: #5C9210;
   color: #5C9210;
-  float: right;
+}
+
+.Success:last-child {
+  margin-left: 5px;
 }
 
 .Success:hover {
