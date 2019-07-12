@@ -11,8 +11,20 @@
   text-align: center;
 }
 
+.Button:disabled {
+  border-color: #DDD;
+  color: #CCC;
+  cursor: not-allowed;
+}
+
+.Button:disabled:hover {
+  background-color: #CCC;
+  border-color: #DDD;
+  color: #FFF;
+}
+
 .Success {
-  border-color: #5C9210;
+  border-color: rgb(73, 77, 69);
   color: #5C9210;
 }
 
