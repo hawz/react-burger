@@ -81,8 +81,8 @@ class ContactData extends Component {
         elementType: 'select',
         elementConfig: {
           options: [
-            {value: 'fastest', displayValue: 'Fastest'},
-            {value: 'cheapest', displayValue: 'Cheapest'}
+            { value: 'fastest', displayValue: 'Fastest' },
+            { value: 'cheapest', displayValue: 'Cheapest' }
           ]
         },
         validation: {},
@@ -163,7 +163,7 @@ class ContactData extends Component {
       formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
     }
 
-    this.setState({orderForm: updatedOrderForm, formIsValid});
+    this.setState({ orderForm: updatedOrderForm, formIsValid });
   }
 
   render() {
