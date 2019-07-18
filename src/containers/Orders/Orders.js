@@ -14,17 +14,25 @@ class Orders extends Component {
   }
 
   render() {
-    let orders = <Spinner />
-    if (!this.props.loading && this.props.orders.length) {
-      orders = this.props.orders.map(order => {
-        return (
-          <Order
-          key={order.id}
-          id={order.id}
-          ingredients={order.ingredients}
-          price={+order.price} />
-        );
-      });
+    let orders = <Spinner />;
+    if (!this.props.loading) {
+      if (this.props.orders.length) {
+        orders = this.props.orders.map(order => {
+          return (
+            <Order
+            key={order.id}
+            id={order.id}
+            ingredients={order.ingredients}
+            clicked={() => this.props.onDeleteOrder(order.id)}
+            price={+order.price} />
+          );
+        });
+      } else {
+        orders = (<h1 style={{
+          textAlign: 'center'
+        }}>No orders here!</h1>)
+      }
+
     }
 
     return (
@@ -44,7 +52,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders: () => dispatch(actions.fetchOrders())
+    onFetchOrders: () => dispatch(actions.fetchOrders()),
+    onDeleteOrder: (orderId) => dispatch(actions.deleteOrder(orderId)),
   }
 };
 
