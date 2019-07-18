@@ -5,7 +5,8 @@ import { updateObject } from '../utility';
 const initialState = {
   orders: [],
   loading: false,
-  purchased: false
+  purchased: false,
+  selectedOrder: null
 };
 
 const purchaseInit = (state, action) => {
@@ -36,11 +37,27 @@ const fetchOrdersStart = (state, action) => {
 const fetchOrdersSuccess = (state, action) => {
   return updateObject(state, {
     loading: false,
-    orders: action.orders
+    orders: action.orders,
+    selectedOrder: null
   });
 }
 
 const fetchOrdersFail = (state, action) => {
+  return updateObject(state, { loading: false });
+}
+
+const fetchOrderStart = (state, action) => {
+  return updateObject(state, {loading: true});
+}
+
+const fetchOrderSuccess = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    selectedOrder: action.selectedOrder
+  });
+}
+
+const fetchOrderFail = (state, action) => {
   return updateObject(state, { loading: false });
 }
 
@@ -53,8 +70,10 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_ORDERS_START: return fetchOrdersStart(state, action);
     case actionTypes.FETCH_ORDERS_SUCCESS: return fetchOrdersSuccess(state, action);
     case actionTypes.FETCH_ORDERS_FAIL: return fetchOrdersFail(state, action);
-    default:
-      return state;
+    case actionTypes.FETCH_ORDER_START: return fetchOrderStart(state, action);
+    case actionTypes.FETCH_ORDER_SUCCESS: return fetchOrderSuccess(state, action);
+    case actionTypes.FETCH_ORDER_FAIL: return fetchOrderFail(state, action);
+    default: return state;
   }
 };
 
