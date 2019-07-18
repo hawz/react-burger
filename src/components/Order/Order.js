@@ -32,7 +32,10 @@ const order = (props) => {
       <p>Ingredients: {ingredientOutput}</p>
       <p>
         <span>Price: <strong>{props.price.toFixed(2)} €</strong></span>
-        <Link to={{pathname: '/orders/' + props.id}}>Details</Link>
+        <span>
+          <Link to={{ pathname: '/orders/' + props.id }}>Details</Link>
+          <button onClick={props.clicked}>Delete</button>
+        </span>
       </p>
     </div>
   );

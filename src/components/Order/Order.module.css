@@ -11,3 +11,11 @@
   display: flex;
   justify-content: space-between;
 }
+
+.Order button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
