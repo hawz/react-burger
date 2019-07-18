@@ -107,7 +107,6 @@ export const fetchOrder = (orderId) => {
     dispatch(fetchOrderStart());
     axios.get(`/orders/${orderId}.json`)
       .then(res => {
-        console.log(res);
         const fetchedOrder = {...res.data};
         dispatch(fetchOrderSuccess(fetchedOrder));
       })
@@ -116,3 +115,37 @@ export const fetchOrder = (orderId) => {
       });
   }
 };
+
+// DELETE ORDER
+export const deleteOrderStart = () => {
+  return {
+    type: actionTypes.DELETE_ORDER_START
+  }
+}
+
+export const deleteOrderSuccess = (orderId) => {
+  return {
+    type: actionTypes.DELETE_ORDER_SUCCESS,
+    orderId
+  }
+};
+
+export const deleteOrderFail = (error) => {
+  return {
+    type: actionTypes.DELETE_ORDER_FAIL,
+    error
+  }
+};
+
+export const deleteOrder = (orderId) => {
+  return dispatch => {
+    dispatch(deleteOrderStart());
+    axios.delete(`/orders/${orderId}.json`)
+    .then(res => {
+      dispatch(deleteOrderSuccess(orderId))
+    })
+    .catch(error => {
+      dispatch(deleteOrderFail(error))
+    });
+  }
+}
