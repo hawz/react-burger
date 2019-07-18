@@ -15,13 +15,16 @@ class Orders extends Component {
 
   render() {
     let orders = <Spinner />
-    if (!this.props.loading) {
-      orders = this.props.orders.map(order => (
-        <Order
+    if (!this.props.loading && this.props.orders.length) {
+      orders = this.props.orders.map(order => {
+        return (
+          <Order
           key={order.id}
+          id={order.id}
           ingredients={order.ingredients}
           price={+order.price} />
-      ));
+        );
+      });
     }
 
     return (
