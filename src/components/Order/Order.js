@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import classes from './Order.module.css';
 
 const order = (props) => {
+
   const ingredients = [];
 
   for (let ingredientName in props.ingredients) {
@@ -28,7 +30,10 @@ const order = (props) => {
   return (
     <div className={classes.Order}>
       <p>Ingredients: {ingredientOutput}</p>
-      <p>Price: <strong>{props.price.toFixed(2)} €</strong></p>
+      <p>
+        <span>Price: <strong>{props.price.toFixed(2)} €</strong></span>
+        <Link to={{pathname: '/orders/' + props.id}}>Details</Link>
+      </p>
     </div>
   );
 };
