@@ -3,13 +3,9 @@ import * as actionTypes from '../actions/actionTypes';
 const STARTING_PRICE = 2;
 
 const initialState = {
-  ingredients: {
-    salad: 0,
-    bacon: 0,
-    cheese: 0,
-    meat: 0
-  },
+  ingredients: null,
   totalPrice: STARTING_PRICE,
+  error: false
 };
 
 const INGREDIENT_PRICES = {
@@ -42,7 +38,25 @@ const reducer = (state = initialState, action) => {
         totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
       };
     case actionTypes.RESET_INGREDIENTS:
-      return {...initialState};
+      return { ...initialState };
+    case actionTypes.SET_INGREDIENTS:
+      return {
+        ...state,
+        // ingredients: action.ingredients,
+        // OR, if we want to decide the order:
+        ingredients: {
+          salad: action.ingredients.salad,
+          bacon: action.ingredients.bacon,
+          cheese: action.ingredients.cheese,
+          meat: action.ingredients.meat
+        },
+        error: false
+      };
+    case actionTypes.FETCH_INGREDIENTS_FAILED:
+      return {
+        ...state,
+        error: true
+      }
     default:
       return state;
   }
