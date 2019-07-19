@@ -10,7 +10,7 @@ import * as actions from '../../store/actions/index';
 
 class OrderDetails extends Component {
   componentDidMount() {
-    this.props.onFetchSelectedOrder(this.props.match.params.id);
+    this.props.onFetchSelectedOrder(this.props.match.params.id, this.props.token);
   }
 
   render() {
@@ -70,13 +70,14 @@ class OrderDetails extends Component {
 const mapStateToProps = state => {
   return {
     loading: state.order.loading,
-    selectedOrder: state.order.selectedOrder
+    selectedOrder: state.order.selectedOrder,
+    token: state.auth.token
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchSelectedOrder: (orderId) => dispatch(actions.fetchOrder(orderId))
+    onFetchSelectedOrder: (orderId, token) => dispatch(actions.fetchOrder(orderId, token))
   }
 }
 
