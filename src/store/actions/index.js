@@ -17,5 +17,6 @@ export {
 
 // Actions exported from auth.js action creators file
 export {
-  auth
+  auth,
+  logout
 } from './auth';
