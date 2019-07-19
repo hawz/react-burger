@@ -18,5 +18,6 @@ export {
 // Actions exported from auth.js action creators file
 export {
   auth,
-  logout
+  logout,
+  setAuthRedirectPath
 } from './auth';
