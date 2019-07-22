@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Layout from './containers/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
-import Checkout from './containers/Checkout/Checkout';
-import Orders from './containers/Orders/Orders';
 import OrderDetails from './containers/Order/Order';
-import Auth from './containers/Auth/Auth';
-import Logout from './containers/Auth/Logout/Logout';
 import * as actions from './store/actions/index';
+
+const Checkout = React.lazy(() => import('./containers/Checkout/Checkout'));
+const Orders = React.lazy(() => import('./containers/Orders/Orders'));
+const Auth = React.lazy(() => import('./containers/Auth/Auth'));
+const Logout = React.lazy(() => import('./containers/Auth/Logout/Logout'));
 
 class App extends Component {
   componentWillMount() {
@@ -19,21 +20,42 @@ class App extends Component {
   render() {
     let routes = (
       <Switch>
-        <Route path="/auth" component={Auth} />
+        <Route path="/auth" render={() => (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Auth />
+          </Suspense>
+        )} />
         <Route path="/" exact component={BurgerBuilder} />
-        <Redirect to="/"/>
+        <Redirect to="/" />
       </Switch>
     );
 
     if (this.props.isAuthenticated) {
       routes = (
         <Switch>
-          <Route path="/checkout" component={Checkout} />
-          <Route path="/orders" exact component={Orders} />
+          <Route path="/checkout" render={() => (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Checkout />
+            </Suspense>
+          )} />
+          <Route path="/orders" exact render={() => (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Orders />
+            </Suspense>
+          )} />
           <Route path="/orders/:id" exact component={OrderDetails} />
-          <Route path="/logout" component={Logout} />
+          <Route path="/logout" render={() => (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Logout />
+            </Suspense>
+          )} />
+          <Route path="/auth" render={() => (
+            <Suspense fallback={<div>Loading...</div>}>
+              <Auth />
+            </Suspense>
+          )} />
           <Route path="/" exact component={BurgerBuilder} />
-          <Redirect to="/"/>
+          <Redirect to="/" />
         </Switch>
       );
     }
