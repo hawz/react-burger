@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
-import { updateObject } from '../utility';
+import { updateObject } from '../../shared/utility';
 
 const initialState = {
   orders: [],
@@ -69,7 +69,6 @@ const deleteOrderStart = (state, action) => {
 
 const deleteOrderSuccess = (state, action) => {
   const newOrders = state.orders.filter(order => order.id !== action.orderId);
-  console.log(newOrders);
   return updateObject(state, {
     loading: false,
     orders: newOrders
