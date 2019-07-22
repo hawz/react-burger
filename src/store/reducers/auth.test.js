@@ -1,7 +1,8 @@
 import reducer from './auth';
-import * as actions from '../actions/actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 
 describe('auth reducer', () => {
+  // default case --> it returns initialState
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
       token: null,
@@ -12,6 +13,28 @@ describe('auth reducer', () => {
     });
   });
 
+  // AUTH_START
+  it('should reset the error and set loading to true when authentication starts', () => {
+    expect(reducer(
+      {
+        token: null,
+        userId: null,
+        error: true,
+        loading: false,
+        authRedirectPath: '/'
+      }, {
+        type: actionTypes.AUTH_START
+      }
+    )).toEqual({
+      token: null,
+      userId: null,
+      error: null,
+      loading: true,
+      authRedirectPath: '/'
+    })
+  });
+
+  // AUTH_SUCCESS
   it('should store the token upon login', () => {
     expect(reducer(
       {
@@ -21,7 +44,7 @@ describe('auth reducer', () => {
         loading: false,
         authRedirectPath: '/'
       }, {
-        type: actions.AUTH_SUCCESS,
+        type: actionTypes.AUTH_SUCCESS,
         idToken: 'some-token',
         userId: 'some-user-id'
       }
@@ -34,5 +57,7 @@ describe('auth reducer', () => {
         authRedirectPath: '/'
       }
     );
-  })
+  });
+
+
 });
