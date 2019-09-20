@@ -49,7 +49,7 @@ export const BurgerBuilder = props => {
   }
 
   const purchaseCancelHandler = () => {
-    setPurchasing(true);
+    setPurchasing(false);
   }
 
   const purchaseContinueHandler = () => {
@@ -58,7 +58,6 @@ export const BurgerBuilder = props => {
       pathname: '/checkout'
     });
   }
-
 
   const disabledInfo = {
     ...props.ingredients
