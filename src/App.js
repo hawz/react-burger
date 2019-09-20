@@ -20,7 +20,11 @@ const App = props => {
 
   let routes = (
     <Switch>
-      <Route path="/auth" render={() => <Auth />} />
+      <Route path="/auth" render={(props) => (
+        <Suspense fallback={<div>Loading...</div>}>
+          <Auth {...props} />
+        </Suspense>
+      )} />
       <Route path="/" exact component={BurgerBuilder} />
       <Redirect to="/" />
     </Switch>
@@ -29,14 +33,14 @@ const App = props => {
   if (props.isAuthenticated) {
     routes = (
       <Switch>
-        <Route path="/checkout" render={() => (
+        <Route path="/checkout" render={(props) => (
           <Suspense fallback={<div>Loading...</div>}>
-            <Checkout />
+            <Checkout {...props} />
           </Suspense>
         )} />
-        <Route path="/orders" exact render={() => (
+        <Route path="/orders" exact render={(props) => (
           <Suspense fallback={<div>Loading...</div>}>
-            <Orders />
+            <Orders {...props} />
           </Suspense>
         )} />
         <Route path="/orders/:id" exact component={OrderDetails} />
@@ -45,9 +49,9 @@ const App = props => {
             <Logout />
           </Suspense>
         )} />
-        <Route path="/auth" render={() => (
+        <Route path="/auth" render={(props) => (
           <Suspense fallback={<div>Loading...</div>}>
-            <Auth />
+            <Auth {...props} />
           </Suspense>
         )} />
         <Route path="/" exact component={BurgerBuilder} />
