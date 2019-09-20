@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import axios from '../../axios-orders';
 import { connect } from 'react-redux';
 
@@ -7,40 +7,38 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-class Orders extends Component {
+const Orders = props => {
 
-  componentDidMount() {
-    this.props.onFetchOrders(this.props.token, this.props.userId);
-  }
+  useEffect(() => {
+    props.onFetchOrders(props.token, props.userId);
+  }, [])
 
-  render() {
-    let orders = <Spinner />;
-    if (!this.props.loading) {
-      if (this.props.orders.length) {
-        orders = this.props.orders.map(order => {
-          return (
-            <Order
+  let orders = <Spinner />;
+  if (!props.loading) {
+    if (props.orders.length) {
+      orders = props.orders.map(order => {
+        return (
+          <Order
             key={order.id}
             id={order.id}
             ingredients={order.ingredients}
-            clicked={() => this.props.onDeleteOrder(order.id, this.props.token)}
+            clicked={() => props.onDeleteOrder(order.id, props.token)}
             price={+order.price} />
-          );
-        });
-      } else {
-        orders = (<h1 style={{
-          textAlign: 'center'
-        }}>No orders here!</h1>)
-      }
-
+        );
+      });
+    } else {
+      orders = (<h1 style={{
+        textAlign: 'center'
+      }}>No orders here!</h1>)
     }
 
-    return (
-      <div>
-        {orders}
-      </div>
-    );
   }
+
+  return (
+    <div>
+      {orders}
+    </div>
+  );
 }
 
 const mapStateToProps = state => {
