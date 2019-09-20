@@ -13,10 +13,11 @@ const Auth = React.lazy(() => import('./containers/Auth/Auth'));
 const Logout = React.lazy(() => import('./containers/Auth/Logout/Logout'));
 
 const App = props => {
+  const { onTryAutoSignup } = props;
+
   useEffect(() => {
-    console.log('called hook');
-    props.onTryAutoSignup();
-  }, [props]);
+    onTryAutoSignup();
+  }, [onTryAutoSignup]);
 
   let routes = (
     <Switch>
